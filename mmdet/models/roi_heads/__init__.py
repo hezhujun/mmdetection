@@ -14,6 +14,7 @@ from .point_rend_roi_head import PointRendRoIHead
 from .roi_extractors import SingleRoIExtractor
 from .shared_heads import ResLayer
 from .standard_roi_head import StandardRoIHead
+from .relation_network_roi_head import RelationNetworkRoIHead
 
 __all__ = [
     'BaseRoIHead', 'CascadeRoIHead', 'DoubleHeadRoIHead', 'MaskScoringRoIHead',
