@@ -42,7 +42,7 @@ This project is released under the [Apache 2.0 license](LICENSE).
 
 ## Changelog
 
-v2.6.0 was released in 1/11/2020.
+v2.8.0 was released in 04/01/2021.
 Please refer to [changelog.md](docs/changelog.md) for details and release history.
 A comparison between v1.x and v2.0 codebases can be found in [compatibility.md](docs/compatibility.md).
 
@@ -51,14 +51,17 @@ A comparison between v1.x and v2.0 codebases can be found in [compatibility.md](
 Results and models are available in the [model zoo](docs/model_zoo.md).
 
 Supported backbones:
+
 - [x] ResNet
 - [x] ResNeXt
 - [x] VGG
 - [x] HRNet
 - [x] RegNet
 - [x] Res2Net
+- [x] ResNeSt
 
 Supported methods:
+
 - [x] [RPN](configs/rpn)
 - [x] [Fast R-CNN](configs/fast_rcnn)
 - [x] [Faster R-CNN](configs/faster_rcnn)
@@ -103,6 +106,8 @@ Supported methods:
 - [x] [YOLACT](configs/yolact/README.md)
 - [x] [CentripetalNet](configs/centripetalnet/README.md)
 - [x] [VFNet](configs/vfnet/README.md)
+- [x] [DETR](configs/detr/README.md)
+- [x] [CascadeRPN](configs/cascade_rpn/README.md)
 
 Some other methods are also supported in [projects using MMDetection](./docs/projects.md).
 
