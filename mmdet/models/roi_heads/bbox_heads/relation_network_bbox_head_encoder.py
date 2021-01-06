@@ -15,7 +15,7 @@ class RelationNetworkBBoxHeadEncoder(BBoxHead):
                  fc1_dim=1024,
                  fc2_dim=1024,
                  r1=1, r2=1,
-                 dk=64, dg=64, Nr=16,
+                 dk=1024, dg=64, Nr=16,
                  *args,
                  **kwargs):
         super(RelationNetworkBBoxHeadEncoder, self).__init__(*args, **kwargs)
