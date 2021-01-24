@@ -65,6 +65,10 @@ class RoIAttentionPixelToPixelConvFCBBoxHead(ConvFCBBoxHead):
         V = V.reshape(BS, num_rois, _H, _W, self.attention_hidden_channels)
         V = V.reshape(BS, num_rois*_H*_W, self.attention_hidden_channels)  # (BS, num_rois*_H*_W, attention_hidden_channels)
 
+        Q = Q.contiguous()
+        K = K.contiguous()
+        V = V.contiguous()
+
         WEIGHTS = torch.bmm(Q, K.permute(0, 2, 1))  # (BS, num_rois*H*W, num_rois*_H*_W)
         WEIGHTS = torch.softmax(WEIGHTS, dim=2)
 
@@ -72,7 +76,9 @@ class RoIAttentionPixelToPixelConvFCBBoxHead(ConvFCBBoxHead):
         Y = Y.reshape(BS, num_rois, H, W, self.attention_hidden_channels)
         Y = Y.reshape(BS*num_rois, H, W, self.attention_hidden_channels)
         Y = Y.permute(0, 3, 1, 2)
+        Y = Y.contiguous()
         y = self.y_conv(Y)
+        y = y.contiguous()
 
         x_enhanced = x + y
         return super(RoIAttentionPixelToPixelConvFCBBoxHead, self).forward(x_enhanced)
@@ -177,14 +183,19 @@ class RoIAttentionPixelToObjectConvFCBBoxHead(ConvFCBBoxHead):
         Q = Q.reshape(BS, num_rois*H*W, -1)  # (BS, num_rois*H*W, attention_hidden_channels) or (BS, num_points, attention_hidden_channels)
 
         K = K.permute(0, 2, 1)
+
+        Q = Q.contiguous()
+        K = K.contiguous()
+
         weights = torch.bmm(Q, K)  # (BS, num_points, num_rois)
         weights = torch.softmax(weights, dim=2)
         Y = torch.bmm(weights, V)  # (BS, num_points, attention_hidden_channels)
         Y = Y.reshape(BS, num_rois, H, W, -1)
         Y = Y.reshape(-1, H, W, self.attention_hidden_channels)  # (BS*num_rois, H, W, attention_hidden_channels)
         Y = Y.permute(0, 3, 1, 2)  # (BS*num_rois, attention_hidden_channels, H, W)
+        Y = Y.contiguous()
         y = self.y_conv(Y)
-
+        y = y.contiguous()
         x_enhanced = x + y
         return super(RoIAttentionPixelToObjectConvFCBBoxHead, self).forward(x_enhanced)
 

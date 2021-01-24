@@ -19,6 +19,7 @@ from .trident_roi_head import TridentRoIHead
 from .relation_network_roi_head import RelationNetworkRoIHead
 from .batch_roi_head import BatchRoIHead
 from .roi_weighted_sum_roi_head import RoIWeightSumRoIHead
+from .contrastive_roi_head import ContrastiveRoIHead
 
 __all__ = [
     'BaseRoIHead', 'CascadeRoIHead', 'DoubleHeadRoIHead', 'MaskScoringRoIHead',

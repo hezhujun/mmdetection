@@ -3,7 +3,7 @@ _base_ = "../faster_rcnn/faster_rcnn_r50_fpn_1x_coco.py"
 model = dict(
     roi_head=dict(
         bbox_head=dict(
-            type='Shared2FCBBoxHead',
+            type='TCTShared2FCBBoxHead',
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
@@ -17,7 +17,7 @@ model = dict(
                 type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
             loss_bbox=dict(type='L1Loss', loss_weight=1.0))))
 
-dataset_type = 'CocoDataset'
+dataset_type = 'TCTDataset'
 
 classes = ('normal', 'ascus', 'asch', 'lsil', 'hsil_scc_omn', 'agc_adenocarcinoma_em', 'vaginalis', 'monilia',
            'dysbacteriosis_herpes_act', 'ec')
@@ -32,7 +32,7 @@ data = dict(
     train=dict(
         type=dataset_type,
         classes=classes,
-        ann_file='data/tct/annotations/train30000-cat10.json',
+        ann_file='data/tct/annotations/train10-cat10.json',
         img_prefix=data_root),
     val=dict(
         type=dataset_type,
@@ -45,4 +45,4 @@ data = dict(
         ann_file='data/tct/annotations/test10000-cat10.json',
         img_prefix=data_root))
 optimizer = dict(type='SGD', lr=0.01, momentum=0.9, weight_decay=0.0001)
-work_dir = "work_dir/tct/faster_rcnn_r50_fpn_1x_tct/"
+work_dir = "work_dir/tct/faster_rcnn_r50_fpn_normal_to_bkg_1x_tct/"
